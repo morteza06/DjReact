@@ -1,0 +1,14 @@
+{
+    "editor.formatOnSave": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pep8Enabled": true,
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django"
+    ],
+    "python.linting.pep8Args": [
+        "--ignore=E501"
+    ],
+    "python.venvPath": "${workspaceFolder}/backend/env/Scripts/python.exe"
+}
