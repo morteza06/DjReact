@@ -1,13 +1,15 @@
 import React from 'react';
-import { Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import ArticleList from './containers/ArticleListView';
 import ArticleDetail from './containers/ArticleDetailView';
 
 const BaseRouter = () => (
     <div>
-        <Routes exact path='/' component={ArticleList}  />
-        <Routes exact path='/:articleID' component={ArticleDetail}  />
+        <Routes>
+            <Route exact path='/'  element={<ArticleList />}  />
+            <Route exact path='/:articleID'  element={< ArticleDetail />}  />
+        </Routes>
     </div>
 );
 

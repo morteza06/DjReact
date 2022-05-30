@@ -22,7 +22,7 @@ const CustomLayout = (props) => {
         <Layout className="layout">
             <Header>
                 <div className="logo" />
-                <Menu mode='horizontal' items={items}  />
+                <Menu mode='horizontal' items={items}  theme="dark" />
             </Header>
             <Content
                 style={{
@@ -37,9 +37,10 @@ const CustomLayout = (props) => {
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/">List</Link></Breadcrumb.Item>
                 </Breadcrumb>
-                    <div className="site-layout-content">
-                        {props.children}
-                    </div>
+
+                <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
+                    {props.children}
+                </div>
             </Content>
             <Footer
                 style={{

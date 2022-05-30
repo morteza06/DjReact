@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { Avatar, List, Space } from 'antd';
 import {StarOutlined, LikeOutlined, MessageOutlined} from '@ant-design/icons';
 
@@ -21,8 +21,8 @@ const Articles = (props) => {
         },
         pageSize: 3,
         }}
-        dataSource={props.data}
-        renderItem={(item) => (
+        dataSource = {props.data}
+        renderItem = {(item) => (
             <List.Item
             key={item.title}
             actions={[
@@ -39,15 +39,14 @@ const Articles = (props) => {
             }
             >
             <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
-                title={<a href={`/${item.id}`}>{item.title}</a>}
-                description={item.description}
+                avatar = {<Avatar src={item.avatar} />}
+                title = {<a href={`/${item.id}`}>{item.title}</a>}
             />
             {item.content}
             </List.Item>
         )}
     />
-        )
+    )
     }
 
 export default Articles;
