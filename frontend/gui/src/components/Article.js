@@ -1,13 +1,12 @@
 import React from 'react';
-import { Avatar, List, Space } from 'antd';
-import {StarOutlined, LikeOutlined, MessageOutlined} from '@ant-design/icons';
+import { Avatar, List, Icon } from 'antd';
 
 
-const IconText = ({ icon, text }) => (
-  <Space>
-    {React.createElement(icon)}
+const IconText = ({ type, text }) => (
+  <span>
+    <Icon type={type} style={{ marginRight: 8 }} />
     {text}
-  </Space>
+  </span>
 );
 
 const Articles = (props) => {
@@ -26,9 +25,9 @@ const Articles = (props) => {
             <List.Item
             key={item.title}
             actions={[
-                <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                    <IconText type="star-o" text="156" />, 
+                    <IconText type="like-o" text="156" />, 
+                    <IconText type="message" text="2" />
             ]}
             extra={
                 <img
@@ -40,7 +39,8 @@ const Articles = (props) => {
             >
             <List.Item.Meta
                 avatar = {<Avatar src={item.avatar} />}
-                title = {<a href={`/${item.id}`}>{item.title}</a>}
+                title = {<a href={`/articles/${item.id}`}>{item.title}</a>}
+                description={item.description}
             />
             {item.content}
             </List.Item>

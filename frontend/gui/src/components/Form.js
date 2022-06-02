@@ -1,35 +1,40 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
-
+import { connect } from 'react-redux';
 import axios from 'axios';
+
 
 class CustomForm extends React.Component {
     
-    handleFormSubmit = (event, requestType, articleID) => {
-        const title = event.target.elements.title.value;
-        const content = event.target.elements.content.value;
+    handleFormSubmit = async(event, requestType, articleID) => {
 
-        switch ( requestType ) {
-            case 'post':
-                return axios.post('http://127.0.0.1:8000/api/', {
-                    title: title,
-                    content: content
-                })
-                .then(res => console.log(res))
-                .catch(error => console.err(error));
-
-            case 'put':
-                return axios.put(`http://127.0.0.1:8000/api/${articleID}/`, {
-                    title: title,
-                    content: content
-                })
-                .then(res => console.log(res))
-                .catch(error => console.err(error));
-            default:
-                console.log(`Unknow action type: ${requestType}`)
+        const postObj = {
+            title : event.target.elements.title.value,
+            content : event.target.elements.content.value
+        }
+        axios.defaults.xsrfCookieName = "X-CSRFTOKEN";
+        axios.defaults.xsrfHeaderName = "csrftoken";
+        axios.defaults.headers = {
+            "Content-Type": "application/json",
+            Authorization: `Token ${this.props.token}`,
         }
 
-        console.log(title,content);
+        if ( requestType === "post") {
+            await axios.post('http://127.0.0.1:8000/api/create/', postObj)
+            .then(res => {
+                if (res.status === 201 ){
+                    this.props.history.push('/');
+                }
+            })
+            
+        } else if ( requestType === "put") {
+            await axios.put(`http://127.0.0.1:8000/api/${articleID}/update/`, postObj)
+                .then(res => {
+                if (res.status === 200 ) {
+                    this.props.history.push('/');
+                }
+            })
+        }
     }
 
     render() { 
@@ -53,8 +58,14 @@ class CustomForm extends React.Component {
                 </Form.Item>
             </Form>
         </div>
-    );
-}
+        );
+    }
 }
 
-export default CustomForm;
+const mapStateToProps = state => {
+    return {
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps)(CustomForm);
